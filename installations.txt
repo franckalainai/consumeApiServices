@@ -1,0 +1,2 @@
+1- Installer guzzle pour nos differentes requetes HTTP
+composer require guzzlehttp/guzzle
