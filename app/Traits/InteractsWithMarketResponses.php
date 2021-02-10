@@ -6,6 +6,8 @@ trait InteractsWithMarketResponses{
     public function decodeResponse($response){
         $decodeResponse = json_decode($response);
         return $decodeResponse->data ?? $decodeResponse;
+        //$decodeResponse = $response;
+        //return $decodeResponse->data ?? $decodeResponse;
     }
 
     public function checkIfErrorResponse($response){

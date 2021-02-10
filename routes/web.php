@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', 'WelcomeController@showWelcomePage')->name('welcome');
 
+Route::get('products/{title}-{id}', 'ProductController@showProduct')->name('products.show');
+
+
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');

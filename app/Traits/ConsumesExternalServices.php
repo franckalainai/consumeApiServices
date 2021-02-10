@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 trait ConsumesExternalServices{
     public function makeResquest($method, $requestUrl, $queryParams = [], $formParams = [], $headers = [] ){
         $client = new Client([
-            'base_uri' => $this->base_uri,
+            'base_uri' => $this->baseUri
         ]);
 
         if(method_exists($this, 'resolveAuthorization')){
@@ -20,15 +20,16 @@ trait ConsumesExternalServices{
             'headers' => $headers
         ]);
 
+        $response = $response->getBody()->getContents();
+
         if(method_exists($this, 'decodeResponse')){
-            $this->decodeResponse($response);
+            $response = $this->decodeResponse($response);
         }
 
         if(method_exists($this, 'checkIfErrorResponse')){
             $this->checkIfErrorResponse($response);
         }
 
-        $response = $response->getBody()->getContents();
         return $response;
 
     }

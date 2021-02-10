@@ -3,31 +3,13 @@
 namespace App\Traits;
 
 trait AuthorizesMarketRequests{
-    public function makeResquest($method, $requestUrl, $queryParams = [], $formParams = [], $headers = [] ){
-        $client = new Client([
-            'base_uri' => $this->base_uri,
-        ]);
 
-        if(method_exists($this, 'resolveAuthorization')){
-            $this->resolveAuthorization($queryParams, $formParams, $headers);
-        }
+    public function resolveAuthorization(&$queryParams, &$formParams, &$headers){
+        $accessToken = $this->resolveAccessToken();
+        $headers['Authorization'] = $accessToken;
+    }
 
-        $response = $client->request($method, $requestUrl, [
-            'query' => $queryParams,
-            'formParams' => $formParams,
-            'headers' => $headers
-        ]);
-
-        if(method_exists($this, 'decodeResponse')){
-            $this->decodeResponse($response);
-        }
-
-        if(method_exists($this, 'checkIfErrorResponse')){
-            $this->checkIfErrorResponse($response);
-        }
-
-        $response = $response->getBody()->getContents();
-        return $response;
-
+    public function resolveAccessToken(){
+        return 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiZDIyOTZiNDQ1M2U4YTAyNTY4OTkxZGYwN2VjMTdmN2E5NDdhYTBmYjQ2MzBiNDI4Y2RlZGJhMzNiNGQ2Y2NjM2I1OTgyNjA1YzMyN2YxN2MiLCJpYXQiOiIxNjEyOTY1NzkxLjQ5MDQ1OCIsIm5iZiI6IjE2MTI5NjU3OTEuNDkwNDY0IiwiZXhwIjoiMTY0NDUwMTc5MS40ODY0MjYiLCJzdWIiOiIxMDMyIiwic2NvcGVzIjpbInB1cmNoYXNlLXByb2R1Y3QiLCJtYW5hZ2UtcHJvZHVjdHMiLCJtYW5hZ2UtYWNjb3VudCIsInJlYWQtZ2VuZXJhbCJdfQ.Cl91ZGGf37cnsLbVkl5qwLBH4QGLarg5PAJUG1ULDXWWSamBMqz-kBDqrfsTUKK4RbksrEFwFNGpWC2DpT-D6GPXgH7I1pUFDwsHhiUzpsKmwPwmkjidRgiYyUHspbRsWEoK03-iemwvTsUs49CxY5vcXAsGW4dthGM8zN5XkuLHaqto-ngOxo7dSZUyUyMBZbD8GlHI_Bw0d6che25d2qQCwi7NxdNDcC3icWX5iiD2dAZHLbia63_JqI_TbvRhVKDR3PlHwmCiWh7NhS3AvuBUZzB3CcofMA2gCrhYtAAAGcKTTrb518NhH0-R1SXb5kFl98CnclWhntfYBX2gFxg3XpFdc8x0Vq2txRQKI_FHJb11Kc1D0ErtI9Q5pm-4FEFhi4sflTayvwlEuIWRtq7ZS-NU_uPhKYA0S8XzZzQD3BasRr4Sw3SeHuYQyssj8BFX4N54HKKJpC1SxDl-IOn7fDiZXxs5sY6uRtWoIpcUmGVl3O9w5iGk-8EjNVqTMymFUxHM-7Od9FnrT_msk7ModAGqEsT_GZmd3NAol7Nh53FW-yMBhTUFjtc7Jc_ZUClFcYLLEDbBg1YSoHG4rCqgg4ieQmVoyjGfKXyoA8L8cOHx1oQfctb6aRDtG8T_0w48ArIVmkyWwXCk-a1BFX0EDTGY1SnfVdTExNYA7R0';
     }
 }
