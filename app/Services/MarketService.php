@@ -1,10 +1,12 @@
 <?php
 namespace App\Services;
 
+use App\Traits\AuthorizesMarketRequests;
 use App\Traits\ConsumesExternalServices;
+use App\Traits\InteractsWithMarketResponses;
 
 class MarketService{
-    use consumesExternalServices;
+    use consumesExternalServices, AuthorizesMarketRequests, InteractsWithMarketResponses;
 
     protected $baseUri;
 
@@ -13,15 +15,4 @@ class MarketService{
         $this->baseUri = config('services.market.base_uri');
     }
 
-    public function resolveAuthorization(&$queryParams, &$formParams, &$headers){
-
-    }
-
-    public function decodeResponse($response){
-
-    }
-
-    public function checkIfErrorResponse($response){
-
-    }
 }

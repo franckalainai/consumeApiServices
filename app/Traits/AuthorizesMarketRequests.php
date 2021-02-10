@@ -2,9 +2,7 @@
 
 namespace App\Traits;
 
-use GuzzleHttp\Client;
-
-trait ConsumesExternalServices{
+trait AuthorizesMarketRequests{
     public function makeResquest($method, $requestUrl, $queryParams = [], $formParams = [], $headers = [] ){
         $client = new Client([
             'base_uri' => $this->base_uri,
