@@ -1,2 +1,11 @@
 1- Installer guzzle pour nos differentes requetes HTTP
 composer require guzzlehttp/guzzle
+
+2- Creation des composants d'authentification des utilisateurs
+composer require laravel/ui
+php artisan ui vue --auth
+npm Install
+npm run dev
+
+3- Creation du controller de la page d'accueil
+php artisan make:controller WelcomeController
