@@ -27,4 +27,9 @@ class MarketService{
         return $this->makeResquest('GET', 'categories');
     }
 
+    public function getCategoryProducts($id){
+        return $this->makeResquest('GET', "categories/{$id}/products");
+    }
+
+
 }
